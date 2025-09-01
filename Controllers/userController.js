@@ -12,7 +12,7 @@ import getDataUri from '../Utils/dataUri.js'
 
 
 
-
+// register a user
 export const register =catchAsyncError(async(req,res,next)=>{
     const{name,email,password,} =req.body
     const file=req.file
@@ -40,7 +40,7 @@ sendToken(res,user,"Registered Successfully",201)
 })
 
 
-
+// login a user  
 export const Login= catchAsyncError(async(req,res,next)=>{
     const {password,email}= req.body
         if(!email||!password)
@@ -62,7 +62,7 @@ sendToken(res,user,`Welcome Back${user.name}`,201)
 
 })
 
-
+// logout the user
 export const Logout =catchAsyncError(async(req,res,next)=>{
     res.status(200).cookie("token",null,{
         expires:new Date(Date.now())
@@ -78,6 +78,7 @@ export const getMyProfile =catchAsyncError(async(req,res,next)=>{
        user,
     })
 })
+// change password
 export const changePassword =catchAsyncError(async(req,res,next)=>{
     const {newPassword,oldPassword}=req.body;
     if(!newPassword||!oldPassword)
@@ -96,6 +97,7 @@ res.json({
 
 
 })
+// For updation of profile
 export const updateProfile =catchAsyncError(async(req,res,next)=>{
     const {name,email}=req.body;
    
