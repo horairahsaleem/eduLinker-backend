@@ -21,3 +21,11 @@ export const isAuthorized = catchAsyncError(async(req,res,next)=>{
     next()
 
 })
+export const isAuthorizedSubscriber = catchAsyncError(async(req,res,next)=>{
+    if(req.user.subscription.status!=="active" &&  req.user.role!== 'admin')
+        return next(new ErrorHandler("Please subscribe for complete access "))
+
+
+    next()
+
+})
