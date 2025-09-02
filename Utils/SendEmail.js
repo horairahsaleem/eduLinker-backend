@@ -1,6 +1,6 @@
 import {createTransport} from "nodemailer"
 
-export const sendEmail= async(to,subject,text)=>{
+export const sendEmail= async(to,subject,text,replyTo)=>{
 
     const transporter = createTransport(
 
@@ -10,15 +10,18 @@ export const sendEmail= async(to,subject,text)=>{
             auth: {
               user: process.env.SMTP_USER,
               pass: process.env.SMTP_PASS,
-            }
+            },
+              logger: true,   // logs everything
+              debug: true,    // show detailed connection logs
           }
     );
 
-    await transporter.sendMail({
-        to,
-        subject,
-        text,
-        from:"horairahsaleem7864@gmail.com"
-    
-    })
+   await transporter.sendMail({
+  from: '"CourseBundler" <horairahsaleem7864@gmail.com>',
+  to,
+  subject,
+  text,
+  ...(replyTo && { replyTo }),   // only add replyTo if it's provided
+});
+
 }

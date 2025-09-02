@@ -29,7 +29,7 @@ export const courseRequest = catchAsyncError(async (req, res, next) => {
   const subject = "Requesting for a course on CourseBundler";
   const text = `I am ${name} and my Email is ${email}. \n${course}`;
 
-  await sendEmail(to, subject, text);
+  await sendEmail(to, subject, text,email);
 
   res.status(200).json({
     success: true,
