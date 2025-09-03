@@ -7,7 +7,8 @@ import { sendEmail } from '../Utils/SendEmail.js'
 import crypto  from "crypto"
 import cloudinary from"cloudinary"
 import getDataUri from '../Utils/dataUri.js'
-
+import {Stat}   from '../Models/Stat.js'
+ 
 
 
 
@@ -295,3 +296,13 @@ await cloudinary.v2.uploader.destroy(user.avatar.public_id)
 
 })
 
+User.watch().on("change", async () => {
+  const stats = await Stat.find({}).sort({ createdAt: "desc" }).limit(1);
+
+  const subscription = await User.find({ "subscription.status": "active" });
+  stats[0].users = await User.countDocuments();
+  stats[0].subscription = subscription.length;
+  stats[0].createdAt = new Date(Date.now());
+
+  await stats[0].save();
+});

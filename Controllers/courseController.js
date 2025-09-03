@@ -1,5 +1,6 @@
 import { catchAsyncError } from "../Middlewares/catchAsyncError.js"
 import { Course } from "../Models/Course.js"
+import { Stat } from "../Models/Stat.js";
 import getDataUri from "../Utils/dataUri.js";
 import ErrorHandler from "../Utils/ErrorHandler.js";
 import cloudinary from"cloudinary"
@@ -151,3 +152,18 @@ course.lectures= await course.lectures.filter((item)=>{
 
     }) 
 })
+Course.watch().on("change", async () => {
+  const stats = await Stat.find({}).sort({ createdAt: "desc" }).limit(1);
+
+  const courses = await Course.find({});
+
+  let totalViews = 0;
+
+  for (let i = 0; i < courses.length; i++) {
+    totalViews += courses[i].views;
+  }
+  stats[0].views = totalViews;
+  stats[0].createdAt = new Date(Date.now());
+
+  await stats[0].save();
+});

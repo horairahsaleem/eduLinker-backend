@@ -1,6 +1,7 @@
 import { catchAsyncError } from '../Middlewares/catchAsyncError.js';
 import ErrorHandler from '../Utils/ErrorHandler.js';
 import { sendEmail } from '../Utils/SendEmail.js';
+import { Stat } from "../Models/Stat.js"
 
 export const contact = catchAsyncError(async (req, res, next) => {
   const { name, email, message } = req.body;
@@ -36,3 +37,5 @@ export const courseRequest = catchAsyncError(async (req, res, next) => {
     message: "Your Request Has Been Sent.",
   });
 });
+
+
