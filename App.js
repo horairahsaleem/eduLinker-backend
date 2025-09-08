@@ -2,6 +2,7 @@ import express  from "express";
 import { config } from "dotenv";
 import ErrorMiddleware from "./Middlewares/Error.js";
 import cookieParser from "cookie-parser";
+import 
 config({
     path:'./Config/config.env'
 })

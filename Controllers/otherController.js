@@ -46,7 +46,7 @@ export const getDashboardStats = catchAsyncError(async (req, res, next) => {
   for (let i = 0; i < stats.length; i++) {
     statsData.unshift(stats[i]);
   }
-  const requiredSize = 12 - Stat.length;
+  const requiredSize = 12 - stats.length;
 
   for (let i = 0; i < requiredSize; i++) {
     statsData.unshift({
