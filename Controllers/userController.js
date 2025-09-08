@@ -42,22 +42,28 @@ sendToken(res,user,"Registered Successfully",201)
 
 
 // login a user  
-export const Login = catchAsyncError(async (req, res, next) => {
-  console.log("Backend received body:", req.body); // 👈 add this line
+export const login = catchAsyncError(async (req, res, next) => {
+  const { email, password } = req.body;
 
-  const { password, email } = req.body;
-
+  // 1. Validate fields
   if (!email || !password) {
-    return next(new ErrorHandler("Please add all fields", 400));
+    return next(new ErrorHandler("Please provide email and password", 400));
   }
 
+  // 2. Find user in DB
   const user = await User.findOne({ email }).select("+password");
-  if (!user) return next(new ErrorHandler("Incorrect email or password", 401));
+  if (!user) {
+    return next(new ErrorHandler("Invalid email or password", 401));
+  }
 
+  // 3. Compare password
   const isMatch = await user.comparePassword(password);
-  if (!isMatch) return next(new ErrorHandler("Incorrect email or password", 401));
+  if (!isMatch) {
+    return next(new ErrorHandler("Invalid email or password", 401));
+  }
 
-  sendToken(res, user, `Welcome Back ${user.name}`, 201);
+  // 4. Send JWT token in cookie
+  sendToken(res, user, `Welcome back, ${user.name}`, 200);
 });
 
 
