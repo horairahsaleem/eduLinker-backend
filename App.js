@@ -37,6 +37,12 @@ app.use("/api/v1", user);
 app.use("/api/v1", payment);
 app.use("/api/v1", other);
 
+//   Health check of a backend
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});    
+
+
 app.use(ErrorMiddleware)
 
 export default app;
