@@ -1,11 +1,9 @@
 import express  from "express";
-import { config } from "dotenv";
+import { config as dotenvConfig } from "dotenv";
 import ErrorMiddleware from "./Middlewares/Error.js";
 import cookieParser from "cookie-parser";
-import 
-config({
-    path:'./Config/config.env'
-})
+import  cors from 'cors'
+dotenvConfig({ path: "./Config/config.env" });
 
 
 import course from './Routes/courseRoutes.js'
@@ -15,6 +13,12 @@ import other from './Routes/other.js'
 
 const app = express();
 // using middlewares 
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://yourapp.netlify.app"],
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(
@@ -22,6 +26,8 @@ app.use(
         extended:true,
     })
 )
+
+
 
 
 
