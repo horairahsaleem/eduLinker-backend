@@ -42,26 +42,24 @@ sendToken(res,user,"Registered Successfully",201)
 
 
 // login a user  
-export const Login= catchAsyncError(async(req,res,next)=>{
-    const {password,email}= req.body
-        if(!email||!password)
-        return next(new ErrorHandler('Please add all fields ',400))
+export const Login = catchAsyncError(async (req, res, next) => {
+  console.log("Backend received body:", req.body); // 👈 add this line
 
-    const user = await User.findOne({email}).select("+password")
+  const { password, email } = req.body;
 
-    if(!user) return next(new ErrorHandler("Incorrect email or password",401))
+  if (!email || !password) {
+    return next(new ErrorHandler("Please add all fields", 400));
+  }
 
-// const isMatch = await User.comparePassword(password)
-const isMatch = await user.comparePassword(password);
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) return next(new ErrorHandler("Incorrect email or password", 401));
 
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) return next(new ErrorHandler("Incorrect email or password", 401));
 
-if(!isMatch)
-return next(new ErrorHandler("Incorrect email or password",401))
+  sendToken(res, user, `Welcome Back ${user.name}`, 201);
+});
 
-sendToken(res,user,`Welcome Back${user.name}`,201)
- 
-
-})
 
 // logout the user
 export const Logout =catchAsyncError(async(req,res,next)=>{
