@@ -42,7 +42,7 @@ sendToken(res,user,"Registered Successfully",201)
 
 
 // login a user  
-export const login = catchAsyncError(async (req, res, next) => {
+export const Login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   // 1. Validate fields
