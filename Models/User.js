@@ -16,8 +16,7 @@ email:{
     type:String,
     required:[true,"Please enter the email"],
     unique:true,
-    validator:validator.isEmail,
-
+validate: [validator.isEmail, "Please enter a valid email"],
 },
 // Password type, required, minLength, select
 password:{

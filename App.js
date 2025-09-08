@@ -15,7 +15,7 @@ const app = express();
 // using middlewares 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://yourapp.netlify.app"],
+    origin: ["http://localhost:3000", "https://effortless-swan-b08432.netlify.app"],
     credentials: true,
   })
 );
