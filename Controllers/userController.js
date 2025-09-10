@@ -68,14 +68,22 @@ export const Login = catchAsyncError(async (req, res, next) => {
 
 
 // logout the user
-export const Logout =catchAsyncError(async(req,res,next)=>{
-    res.status(200).cookie("token",null,{
-        expires:new Date(Date.now())
-    }).json({
-        success:true,
-        message:"Logout successfully"
+
+export const Logout = catchAsyncError(async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", {
+      expires: new Date(Date.now()), // expire immediately
+      httpOnly: true,
+      sameSite: "none",  // or "lax" if frontend/backend same origin
+      secure: true,      // only over HTTPS (important on Render)
     })
-})
+    .json({
+      success: true,
+      message: "Logout successfully",
+    });
+});
+
 export const getMyProfile =catchAsyncError(async(req,res,next)=>{
     const user = await User.findById(req.user._id)
     res.status(200).json({
