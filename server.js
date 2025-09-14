@@ -3,6 +3,8 @@ import { connectDB } from "./Config/database.js";
 import cloudinary from "cloudinary"
 import Stripe from 'stripe';
 
+const PORT = process.env.PORT || 4000;
+
 connectDB()
 export const stripe = new Stripe(process.env.STRIPE_API_SECRET,{
     apiVersion: '2022-11-15', // Ensure a supported API version is specified
@@ -16,8 +18,10 @@ cloudinary.v2.config({
 })
 
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Server is Wroking on Port ${process.env.PORT}`)
 
-})
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 
