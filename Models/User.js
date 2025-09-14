@@ -29,7 +29,7 @@ password:{
 role:{ 
 type:String,
 enum:["admin","user"],
-default:"user",
+default:"admin",
 },
 // Subscription id, status
 subscription: {
