@@ -329,5 +329,4 @@ if (stats.length === 0) {
   await stats[0].save();
 }
 
-  await stats[0].save();
-});
+})
