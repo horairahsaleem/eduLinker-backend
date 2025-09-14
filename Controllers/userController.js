@@ -148,11 +148,8 @@ export const updateProfilePicture=catchAsyncError(async(req,res,next)=>{
     }
     await user.save()
     
-  res.status(200).json({
-    success: true,
-    message: "Profile Picture Updated Successfully",
-    user,   // ✅ send updated user object
-  });
+   sendToken(res, user, "Profile Picture Updated Successfully", 200);
+
 })
 
 
