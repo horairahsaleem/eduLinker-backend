@@ -146,7 +146,7 @@ export const updateProfilePicture=catchAsyncError(async(req,res,next)=>{
         url:myCloud.secure_url
         
     }
-    user.save()
+    await user.save()
     
   res.status(200).json({
     success: true,
