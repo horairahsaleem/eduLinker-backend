@@ -3,6 +3,16 @@ import { config as dotenvConfig } from "dotenv";
 import ErrorMiddleware from "./Middlewares/Error.js";
 import cookieParser from "cookie-parser";
 import  cors from 'cors'
+const app = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://effortless-swan-b08432.netlify.app"],
+    credentials: true,
+  })
+);
+app.options("*", cors());
+
 dotenvConfig({ path: "./Config/config.env" });
 
 
@@ -11,14 +21,7 @@ import user from './Routes/userRoutes.js'
 import payment from './Routes/paymentsRoutes.js'
 import other from './Routes/other.js'
 
-const app = express();
-// using middlewares 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://effortless-swan-b08432.netlify.app"],
-    credentials: true,
-  })
-);
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(
