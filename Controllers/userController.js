@@ -147,13 +147,12 @@ export const updateProfilePicture=catchAsyncError(async(req,res,next)=>{
         
     }
     user.save()
-    res.status(200).json({
-        success:true,
-        message:"Profile Picture Updated Successfully ",
-         avatar: {
-url:myCloud.secure_url  }
-        
-    })
+    
+  res.status(200).json({
+    success: true,
+    message: "Profile Picture Updated Successfully",
+    user,   // ✅ send updated user object
+  });
 })
 
 
