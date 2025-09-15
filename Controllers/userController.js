@@ -113,11 +113,19 @@ res.json({
 // For updation of profile
 export const updateProfile =catchAsyncError(async(req,res,next)=>{
     const {name,email}=req.body;
+        const user = await User.findById(req.user._id)
+
+    // Check if email is used by another user
+  const emailTaken = await User.findOne({ email, _id: { $ne: user._id } });
+
+  if (emailTaken) {
+    return next(new Error("Email already in use by another account"));
+  }
+
    
-    const user = await User.findById(req.user._id)
     
-    user.name=name
-    user.email=email
+     user.name = name || user.name;
+  user.email = email || user.email;
     await user.save()
 res.json({
     success:true,
