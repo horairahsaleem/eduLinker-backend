@@ -4,16 +4,38 @@ import { Stat } from "../Models/Stat.js";
 import getDataUri from "../Utils/dataUri.js";
 import ErrorHandler from "../Utils/ErrorHandler.js";
 import cloudinary from"cloudinary"
-export const getAllCourses = catchAsyncError(async (req,res,next)=>{
-    const courses = await Course.find().select("-lectures");
-    res.status(200).json({
-        success:true,
-        courses,
+// export const getAllCourses = catchAsyncError(async (req,res,next)=>{
+//     const courses = await Course.find().select("-lectures");
+//     res.status(200).json({
+//         success:true,
+//         courses,
 
-    })
+//     })
+// })
+export const getAllCourses = catchAsyncError(async (req, res, next) => {
+  const keyword = req.query.keyword || "";
+  const category = req.query.category || "";
+
+  const courses = await Course.find({
+    title: {
+      $regex: keyword,
+      $options: "i",
+    },
+    category: {
+      $regex: category,
+      $options: "i",
+    },
+  }).select("-lectures");
+
+  res.status(200).json({
+    success: true,
+    courses,
+  });
 })
+
+
 export const createCourse = catchAsyncError(async (req,res,next)=>{
-    const {title,description ,category,createdby,ava}=req.body
+    const {title,description ,category,createdby}=req.body
 if(!title||!description||!category||!createdby)
     return next(new ErrorHandler('Please add all fields ',400) )
     const file=req.file
