@@ -36,9 +36,13 @@ export const getAllCourses = catchAsyncError(async (req, res, next) => {
 
 export const createCourse = catchAsyncError(async (req,res,next)=>{
     const {title,description ,category,createdby}=req.body
+    console.log("BODY =>", req.body);
+
 if(!title||!description||!category||!createdby)
     return next(new ErrorHandler('Please add all fields ',400) )
     const file=req.file
+    console.log("FILE =>", req.file);
+ 
     const fileUri = getDataUri(file)
     const myCloud = await cloudinary.v2.uploader.upload(fileUri.content)
 
@@ -54,7 +58,7 @@ if(!title||!description||!category||!createdby)
      })
     res.status(201).json({
         success:true,
-        message:"Course iscourse created successfully.You can add lectures now ",
+        message:"Course is  created successfully.You can add lectures now ",
         
 
     }) 
