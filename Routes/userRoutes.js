@@ -14,7 +14,7 @@ router.route('/updateprofilepicture').put(isAuthenticated ,singleUpload, updateP
 router.route('/forgetpassword').post(forgetPassword)
 router.route('/resetpassword/:token').put(resetPassword)
 router.route('/addtoplaylist').post(isAuthenticated,addToPlayList)
-router.route('/removefromplaylist').post(isAuthenticated,removeFromPlayList)
+router.route('/removefromplaylist').delete(isAuthenticated,removeFromPlayList)
 // Admin routes
 router.route('/admin/users').get(isAuthenticated,isAuthorized,getAllUsers)
 router.route('/admin/users/:id').put(isAuthenticated,isAuthorized,updateUserRole)
