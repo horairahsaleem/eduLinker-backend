@@ -31,7 +31,7 @@ const schema = new mongoose.Schema({
         required: true 
       },
       video:{
-        public_id:{ 
+        public_id:{
           type: String, 
           required: true 
         },

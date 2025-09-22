@@ -6,7 +6,8 @@ import { contact, courseRequest, getDashboardStats } from "../Controllers/otherC
 const  router = express.Router()
 router.route('/contact').post(isAuthenticated,contact)
 router.route('/courserequest').post(isAuthenticated,courseRequest)
-router.route('/admin/getDashboardStats').post(isAuthenticated,getDashboardStats)
+router.route('/admin/stats').get(isAuthenticated, getDashboardStats);
+
 
 
 
