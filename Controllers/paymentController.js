@@ -150,6 +150,8 @@ export const paymentVerification = catchAsyncError(async (req, res, next) => {
         success: true,
         message: "Payment verification successful, subscription active",
         subscriptionId: subscriptionId,
+     subscriptionStatus: 'active'   // ✅ add this
+
     });
 });
 
